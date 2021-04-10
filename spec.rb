@@ -37,7 +37,11 @@ class Person
   end
 
   def initials
-    "#{@first_name[0, 1]}#{@middle_name[0, 1]}#{@last_name[0, 1]}"
+    if @middle_name.nil?
+      "#{@first_name[0, 1]}#{@last_name[0, 1]}"
+    else
+      "#{@first_name[0, 1]}#{@middle_name[0, 1]}#{@last_name[0, 1]}"
+    end
   end
 end
 
@@ -77,6 +81,10 @@ RSpec.describe Person do
       expect(person.initials).to eq("BTK")
     end
 
-    it "only returns two characters if middle name is missing"
+    it "only returns two characters if middle name is missing" do
+      person = Person.new(first_name: "Bill", last_name: "Kidd")
+
+      expect(person.initials).to eq("BK")
+    end
   end
 end
