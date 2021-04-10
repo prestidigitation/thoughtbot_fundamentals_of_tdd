@@ -35,6 +35,10 @@ class Person
       "#{@first_name} #{@middle_name[0, 1]}. #{@last_name}"
     end
   end
+
+  def initials
+    "#{@first_name[0, 1]}#{@middle_name[0, 1]}#{@last_name[0, 1]}"
+  end
 end
 
 RSpec.describe Person do
@@ -66,5 +70,13 @@ RSpec.describe Person do
     end
   end
 
-  describe "#initials"
+  describe "#initials" do
+    it "concatenates the first character of first name, middle name, and last name" do
+      person = Person.new(first_name: "Bill", middle_name: "Thompson", last_name: "Kidd")
+
+      expect(person.initials).to eq("BTK")
+    end
+
+    it "only returns two characters if middle name is missing"
+  end
 end
